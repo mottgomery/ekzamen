@@ -1,0 +1,557 @@
+/* Основные настройки */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: url("/static/img/bg-slide-block.png");
+    background-size: 100%;
+}
+
+header {
+    position: static;
+    top: 0;
+    z-index: 1000;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+footer {
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+    height: 45px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.heder__img {
+    height: 48px;
+    width: 48px;
+    border-radius: 10px;
+}
+
+.my__vk {
+    height: 48px;
+    width: 48px;
+    border-radius: 10px;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content {
+    max-width: 75%;
+    margin: 0 auto;
+    padding: 40px 20px;
+    flex: 1;
+}
+
+/* Стили для задачи */
+.row {
+    padding: 50px 0;
+}
+
+.seperator {
+    margin-bottom: 30px;
+    width: 35px;
+    height: 3px;
+    background: #777;
+    border: none;
+}
+
+.title {
+    text-align: center;
+}
+
+.title .row {
+    padding: 50px 0 0;
+}
+
+.title h1 {
+    text-transform: uppercase;
+}
+
+.title .seperator {
+    margin: 0 auto 10px;
+}
+
+.item {
+    position: relative;
+    margin-bottom: 30px;
+    min-height: 1px;
+    float: left;
+    width: 100%;
+    transition: transform 0.2s ease-in-out;
+}
+
+.item:hover {
+    transform: scale(1.02);
+}
+
+.item .item-in {
+    background: #fff;
+    padding: 20px;
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.item h4 {
+    font-size: 18px;
+    margin-top: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.item p {
+    font-size: 14px;
+    color: #666;
+}
+
+.item a {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #666;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.item a i {
+    opacity: 0;
+    padding-left: 0px;
+    transition: 0.4s;
+    font-size: 16px;
+}
+
+.item a:hover i {
+    padding-left: 10px;
+    opacity: 1;
+}
+
+.zad__img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sort-buttons {
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+
+.sort-buttons .btn {
+    margin-right: 10px;
+    font-size: 13px;
+}
+
+.details {
+    margin-top: 15px;
+}
+
+.btn-info {
+    margin-top: 10px;
+}
+
+
+/* Блок решения скрыт по умолчанию */
+.solution-hidden {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+}
+
+/* Класс для плавного показа решения */
+.solution-visible {
+    max-height: 500px; /* Задаем достаточно большую высоту для блока */
+    transition: max-height 0.5s ease-in;
+}
+
+
+/* Стили только для кнопок в разделе CTA на главной странице */
+.cta-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    font-size: 18px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+}
+
+/* main.css */
+
+/* Основные стили */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+}
+
+h1, h2 {
+    color: #333;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Секции */
+.cta, .features, .benefits, .statistics {
+    margin: 40px auto;
+    max-width: 900px;
+    padding: 30px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Призыв к действию */
+.cta {
+    text-align: center;
+    background-color: #007bff;
+    color: white;
+}
+
+.cta h2 {
+    color: #fff;
+    font-size: 24px;
+}
+
+.cta p {
+    color: #f1f1f1;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.cta-button {
+    background-color: #0056b3;
+    color: white;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin: 10px;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+.cta-button:hover {
+    background-color: #003d80;
+}
+
+/* Особенности и преимущества */
+.features ul, .benefits ul {
+    list-style: none;
+    padding: 0;
+    font-size: 16px;
+}
+
+.features li, .benefits li {
+    margin-bottom: 10px;
+    color: #555;
+    display: flex;
+    align-items: center;
+}
+
+.features li:before, .benefits li:before {
+    content: '✔';
+    margin-right: 10px;
+    color: #007bff;
+}
+
+/* Статистика */
+.statistics ul {
+    list-style: none;
+    padding: 0;
+    font-size: 18px;
+    text-align: center;
+}
+
+.statistics li {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Кнопки */
+.btn-info, .sort-buttons .btn {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.btn-info:hover, .sort-buttons .btn:hover {
+    background-color: #0056b3;
+}
+
+/* Разделители и отступы */
+.section-divider {
+    width: 60px;
+    height: 4px;
+    background: #007bff;
+    margin: 20px auto;
+    border-radius: 4px;
+}
+
+/* Тёмная тема */
+body.dark-theme {
+    background-color: #1c1c1c;
+    color: #f5f5f5;
+}
+body.dark-theme .content{
+    color: #f5f5f5;
+}
+/* Хедер и футер */
+body.dark-theme header,
+body.dark-theme footer
+{
+    background-color: #2a2a2a;
+    color: #f5f5f5;
+}
+
+/* Элементы с текстом и ссылками */
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme p,
+body.dark-theme a {
+    color: #f5f5f5;
+}
+
+
+/* Дополнительные секции */
+body.dark-theme .features,
+body.dark-theme .benefits,
+body.dark-theme .statistics,
+body.dark-theme .item-in{
+    background-color: #2e2e2e;
+    color: #f5f5f5;
+}
+
+body.dark-theme .statistics li,
+body.dark-theme .features li,
+body.dark-theme .benefits li{
+    background-color: #2e2e2e;
+    color: #c3c3c3;
+}
+
+/* Стили ссылок и кнопок при наведении */
+body.dark-theme .cta-button:hover,
+body.dark-theme .btn:hover {
+    background-color: #3a3a3a;
+}
+
+
+/* Общие стили формы */
+form {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для полей ввода */
+input[type="text"],
+input[type="password"] {
+    width: calc(100% - 40px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Стили для кнопки переключения видимости пароля */
+#togglePassword {
+    position: absolute;
+    right: 15px;
+    top: 35px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #007bff;
+    padding: 0;
+}
+
+#togglePassword:hover {
+    color: #0056b3;
+}
+
+/* Контейнер для поля пароля и кнопки */
+.password-container {
+    position: relative;
+}
+
+/* Стили для кнопки отправки */
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+
+#deleteButton {
+    padding: 8px 16px; /* Добавьте, если нужно увеличить отступы внутри кнопки */
+    border: none; /* Убирает границу */
+    background-color: #6c757d; /* Цвет кнопки (как в `btn-secondary`) */
+    color: white; /* Цвет текста */
+    cursor: pointer;
+    border-radius: 4px; /* Скругленные края для улучшения внешнего вида */
+}
+#deleteForm {
+    text-align: left; /* Выровнять содержимое формы по левому краю */
+    display: inline;
+    padding: 0px 0px;
+}
+
+#deleteButton {
+    display: inline-block; /* Убирает центрирование */
+    margin: 0; /* Убирает автоматические отступы */
+}
+
+
+.tags {
+    margin-top: 10px;
+}
+.tag {
+    display: inline-block;
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 2px 6px;
+    margin: 2px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    text-decoration: none;
+}
+
+
+body.dark-theme .tag
+{
+    display: inline-block;
+    background-color: #555555;
+    color: #cdcdcd;
+    padding: 2px 6px;
+    margin: 2px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.card {
+    position: relative;
+    height: 100%;
+    background-color: #ffffff;
+    transition: transform 0.2s ease-in-out;
+    border-radius: 8px;
+}
+body.dark-theme .filter-panel,
+body.dark-theme .filter-panel,
+body.dark-theme .card-title,
+body.dark-theme .card-body{
+    background-color: #2e2e2e;
+    color: #cdcdcd;
+}
+
+body.dark-theme .card{
+    background-color: #2e2e2e;
+    border-radius: 8px;
+}
+.container {
+    max-width: 1200px;
+}
+
+
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+
+.col-md-3 {
+    position: sticky;
+    top: 20px;
+    max-height: 100vh;
+}
+
+.pagination {
+    margin-top: 20px;
+}
+.filter-panel {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: #fff;
+}
+
+
+.card-footer {
+    background-color: transparent;
+}
+
+.tags .badge {
+    margin-right: 4px;
+}
+.filter-panel {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+}
+
+.tags-list .form-check {
+    margin-bottom: 10px;
+
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: #fff;
+
+
+}
+
+
+
+.card-footer {
+    background-color: transparent;
+}
+
+.tags .badge {
+    margin-right: 4px;
+    text-decoration: none;
+}
+
+.card-title{
+    color: #333;
+    text-decoration-color: #3a3a3a;
+    text-decoration: none;
+
+}
+
+

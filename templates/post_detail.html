@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Подробности о задаче
+{% endblock %}
+
+{% block content %}
+
+
+<h4><strong>Номер билета:</strong><a href="{{ url_for('posts', title=post.title) }}" class="tag"> {{ post.title }}</a></h4>
+
+<h4><strong>Уровень задачи: {{ post.level }}</strong></h4>
+
+<h4><div class="tags"><strong>Темы:</strong> {% for tag in post.tags %} <a href="{{ url_for('posts', tags=tag.name) }}" class="tag">{{ tag.name }}</a> {% endfor %} </div></h4>
+
+<img class="zad__img" src="data:image/png;base64,{{ zad_base64 }}" alt="Условие задачи">
+
+<!-- Кнопка для показа решения -->
+<button class="btn btn-primary mt-3" id="toggleSolution">Показать ответ</button>
+<!-- Скрытый блок с решением -->
+<div id="solutionContainer" style="display: none;">
+<p></p>
+
+    <img class="zad__img" src="data:image/png;base64,{{ resh1_base64 }}" alt="Первый способ решения">
+
+
+    {% if resh2_base64 %}
+        <img class="zad__img" src="data:image/png;base64,{{ resh2_base64 }}" alt="Второй способ решения">
+    {% endif %}
+    {% if resh3_base64 %}
+        <img class="zad__img" src="data:image/png;base64,{{ resh3_base64 }}" alt="Третий способ решения">
+    {% endif %}
+    {% if resh4_base64 %}
+        <img class="zad__img" src="data:image/png;base64,{{ resh4_base64 }}" alt="Четвёртый способ решения">
+    {% endif %}
+    {% if resh5_base64 %}
+        <img class="zad__img" src="data:image/png;base64,{{ resh5_base64 }}" alt="Пятый способ решения">
+    {% endif %}
+</div>
+
+<a href="{{ url_for('posts') }}" class="btn btn-secondary mt-3">Вернуться ко всем задачам</a>
+
+
+<!-- Форма для удаления задачи -->
+{% if current_user.role == 'admin' or current_user.role == 'teacher'%}
+<form id="deleteForm" action="{{ url_for('delete_post', id=post.id) }}" method="post">
+    <button id="deleteButton" type="button" class="btn btn-secondary mt-3">Удалить задачу</button>
+</form>
+{% endif %}
+
+{% if current_user.role == 'admin'%}
+<a href="{{ url_for('update_post_tags', post_id=post.id) }}" class="btn btn-info">Редактировать теги</a>
+{% endif %}
+
+
+{% endblock %}
+
+

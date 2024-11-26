@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Редактирование тегов для задачи: {{ post.title }}</h1>
+
+<form method="POST" action="{{ url_for('update_post_tags', post_id=post.id) }}">
+    <div>
+        {% for tag in all_tags %}
+        <div>
+            <input
+                type="checkbox"
+                id="tag_{{ tag.id }}"
+                name="tags"
+                value="{{ tag.id }}"
+                {% if tag in post.tags %}checked{% endif %}
+            >
+            <label for="tag_{{ tag.id }}">{{ tag.name }}</label>
+        </div>
+        {% endfor %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+</form>
+
+
+{% endblock %}

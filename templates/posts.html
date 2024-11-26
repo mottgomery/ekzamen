@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Все задачи
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Боковая панель с фильтрами -->
+        <aside class="col-md-4">
+            <div class="filter-panel border rounded p-3 mb-4">
+                <h5>Фильтры</h5>
+
+                <!-- Фильтр по тегам -->
+                <form method="get" action="{{ url_for('posts') }}">
+                    <div class="form-group mb-3">
+                        <label>Теги:</label>
+                        <div class="tags-list mt-2">
+                            {% for tag in all_tags %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="tags" value="{{ tag.name }}"
+                                           id="tag-{{ tag.id }}"
+                                           {% if tag.name in filter_tags %}checked{% endif %}>
+                                    <label class="form-check-label" for="tag-{{ tag.id }}">{{ tag.name }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Сортировка -->
+                    <div class="mb-3">
+                        <label for="sort_by">Сортировка:</label>
+                        <select name="sort_by" class="form-control mt-2">
+                            <option value="title" {% if sort_by == 'title' %}selected{% endif %}>По номеру билета</option>
+                            <option value="level" {% if sort_by == 'level' %}selected{% endif %}>По уровню задачи</option>
+                        </select>
+                        <select name="order" class="form-control mt-2">
+                            <option value="asc" {% if order == 'asc' %}selected{% endif %}>Возрастание</option>
+                            <option value="desc" {% if order == 'desc' %}selected{% endif %}>Убывание</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Применить</button>
+
+                    <a href="{{ url_for('posts') }}" class="btn btn-secondary mt-3">Очистить фильтры</a>
+
+                </form>
+            </div>
+        </aside>
+
+        <!-- Список задач -->
+        <div class="col-md-8">
+            <!-- Замените статичный заголовок -->
+            <h1 class="mb-4">{{ dynamic_title }}</h1>
+
+
+            <!-- Карточки задач -->
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for post in posts.items %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title"> <a href="{{ url_for('posts', title=post.title) }}" class="text-decoration-none">Билет: {{ post.title }}</a></h5>
+                            <p class="card-text">Уровень: {{ post.level }}</p>
+                            <div class="tags">
+                                <strong>Темы:</strong>
+                                {% for tag in post.tags %}
+                                    <a href="{{ url_for('posts', tags=tag.name) }}" class="badge bg-secondary">{{ tag.name }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ url_for('show_post_detail', id=post.id) }}" class="btn btn-outline-primary w-100">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Пагинация -->
+            <nav class="mt-4">
+                <ul class="pagination justify-content-center">
+                    {% if posts.has_prev %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('posts', page=posts.prev_num, sort_by=sort_by, order=order, tags=selected_tag) }}">Назад</a>
+                        </li>
+                    {% endif %}
+                    {% for num in posts.iter_pages(left_edge=2, right_edge=2, left_current=2, right_current=2) %}
+                        <li class="page-item {% if num == posts.page %}active{% endif %}">
+                            <a class="page-link" href="{{ url_for('posts', page=num, sort_by=sort_by, order=order, tags=selected_tag) }}">{{ num }}</a>
+                        </li>
+                    {% endfor %}
+                    {% if posts.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('posts', page=posts.next_num, sort_by=sort_by, order=order, tags=selected_tag) }}">Вперёд</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+{% endblock %}

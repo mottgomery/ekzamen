@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Все задачи
+{% endblock %}
+
+{% block content %}
+        <aside class="filters" style="width: 30%; float: left;">
+            <h3>Фильтры</h3>
+            <div class="sort-buttons">
+                <a href="{{ url_for('posts', sort_by='title', order='asc') }}" class="btn">Сортировать по названию ↑</a>
+                <p></p>
+                <a href="{{ url_for('posts', sort_by='title', order='desc') }}" class="btn">Сортировать по названию ↓</a>
+                <p></p>
+                <a href="{{ url_for('posts', sort_by='level', order='asc') }}" class="btn">Сортировать по уровню ↑</a>
+                <p></p>
+                <a href="{{ url_for('posts', sort_by='level', order='desc') }}" class="btn">Сортировать по уровню ↓</a>
+                <p></p>
+            </div>
+            <form method="get">
+                <label>Теги:</label>
+                {% for tag in all_tags %}
+                    <div>
+                        <input type="checkbox" name="tags" value="{{ tag.name }}"
+                        {% if tag.name in request.args.getlist('tags') %}checked{% endif %}>
+                        <label>{{ tag.name }}</label>
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn">Применить фильтры</button>
+            </form>
+        <p></p>
+
+
+
+        </aside>
+
+        <!-- Блок задач справа -->
+        <section class="posts" style="width: 70%; float: right;">
+            <h2>Задачи</h2>
+
+
+            <!-- Список задач -->
+            {% for post in posts.items %}
+                <div class="item">
+                    <div class="item-in">
+                        <h4>{{ post.title }}</h4>
+                        <p>Уровень: {{ post.level }}</p>
+                        <a href="{{ url_for('show_post_detail', id=post.id) }}">Подробнее</a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <!-- Пагинация -->
+            <div class="pagination">
+                {% if posts.has_prev %}
+                    <a href="{{ url_for('posts', page=posts.prev_num) }}">&laquo; Предыдущая</a>
+                {% endif %}
+                <span>Страница {{ posts.page }} из {{ posts.pages }}</span>
+                {% if posts.has_next %}
+                    <a href="{{ url_for('posts', page=posts.next_num) }}">Следующая &raquo;</a>
+                {% endif %}
+            </div>
+        </section>
+{% endblock %}

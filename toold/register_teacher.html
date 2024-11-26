@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Создание учителя{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Создать учетную запись учителя</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="username" class="form-label">Имя пользователя</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Пароль</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="showPassword">
+            <label class="form-check-label" for="showPassword">Показать пароль</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Создать</button>
+    </form>
+</div>
+
+    {% if current_user.role == 'teacher' or current_user.role == 'admin'%}
+    <hr>
+    <h3>Добавить тег</h3>
+    <form method="POST" action="{{ url_for('add_tag') }}">
+        <div class="mb-3">
+            <label for="tag_name" class="form-label">Название тега</label>
+            <input type="text" class="form-control" id="tag_name" name="tag_name" required>
+        </div>
+        <button type="submit" class="btn btn-secondary">Добавить тег</button>
+    </form>
+    {% endif %}
+
+<script>
+    document.getElementById('showPassword').addEventListener('change', function() {
+        const passwordInput = document.getElementById('password');
+        if (this.checked) {
+            passwordInput.type = 'text';
+        } else {
+            passwordInput.type = 'password';
+        }
+    });
+
+</script>
+{% endblock %}
