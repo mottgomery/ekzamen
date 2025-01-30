@@ -14,11 +14,7 @@ from pytz import timezone
 
 app = Flask(__name__)
 
-DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///local.db")
-if DATABASE_URL.startswith("postgres://"):
-    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
-
-app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://zadachi_user:8RigYV3uFD4cXFM4ejKaHKXVyryOARqx@dpg-cudo002j1k6c73cqufgg-a.frankfurt-postgres.render.com/zadachi"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "your_secret_key")
 app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), 'uploads')
