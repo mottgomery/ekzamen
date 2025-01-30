@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Подробности о задаче
+{% endblock %}
+{% block head %}
+	<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}
+{% block content %}
+<div class="content">
+<h4><strong>Номер билета:</strong><a href="{{ url_for('posts', title=post.title) }}" class="tag"> {{ post.title }}</a></h4>
+
+<h4><strong>Уровень задачи: {{ post.level }}</strong></h4>
+
+<h4><div class="tags"><strong>Темы:</strong> {% for tag in post.tags %} <a href="{{ url_for('posts', tags=tag.name) }}" class="tag">{{ tag.name }}</a> {% endfor %} </div></h4>
+
+<img class="zad__img modal-trigger" src="data:image/png;base64,{{ zad_base64 }}" alt="Условие задачи">
+
+
+<!-- Кнопка "Показать ответ" -->
+<button class="btn-custom btn-primary-custom mt-3" id="toggleSolution">Показать ответ</button>
+
+<!-- Скрытый блок с решением -->
+<div id="solutionContainer" style="display: none;">
+<p></p>
+
+    <img class="zad__img modal-trigger" src="data:image/png;base64,{{ resh1_base64 }}" alt="Первый способ решения">
+
+    {% if resh2_base64 %}
+        <img class="zad__img modal-trigger" src="data:image/png;base64,{{ resh2_base64 }}" alt="Второй способ решения">
+    {% endif %}
+    {% if resh3_base64 %}
+        <img class="zad__img modal-trigger" src="data:image/png;base64,{{ resh3_base64 }}" alt="Третий способ решения">
+    {% endif %}
+    {% if resh4_base64 %}
+        <img class="zad__img modal-trigger" src="data:image/png;base64,{{ resh4_base64 }}" alt="Четвёртый способ решения">
+    {% endif %}
+    {% if resh5_base64 %}
+        <img class="zad__img modal-trigger" src="data:image/png;base64,{{ resh5_base64 }}" alt="Пятый способ решения">
+    {% endif %}
+</div>
+
+<a href="{{ url_for('posts') }}" class="btn-custom btn-secondary-custom mt-3">Вернуться ко всем задачам</a>
+
+
+<!-- Форма для удаления задачи -->
+{% if current_user.role == 'admin' or current_user.role == 'teacher'%}
+<form id="deleteForm" action="{{ url_for('delete_post', id=post.id) }}" method="post">
+    <button id="deleteButton" type="button" class="btn-custom btn-danger-custom mt-3">Удалить задачу</button>
+</form>
+{% endif %}
+
+{% if current_user.role == 'admin'%}
+<a href="{{ url_for('update_post_tags', post_id=post.id) }}" class="btn-custom btn-primary-custom mt-3">Редактировать теги</a>
+{% endif %}
+
+<!-- Кнопка для изменения решений -->
+{% if current_user.role == 'admin' or current_user.role == 'teacher' %}
+<button class="btn-custom btn-warning mt-3" id="editSolutionsBtn">Изменить решения</button>
+{% endif %}
+
+
+
+<!-- Модальное окно для редактирования решений -->
+<div class="modal fade" id="editSolutionsModal" tabindex="-1" aria-labelledby="editSolutionsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editSolutionsModalLabel">Редактировать решения</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editSolutionsForm" action="{{ url_for('update_solutions', post_id=post.id) }}" method="POST" enctype="multipart/form-data">
+                    <!-- Первое решение -->
+                    <div class="mb-3 d-flex align-items-center">
+                        <label for="resh1" class="form-label me-2">Первое решение</label>
+                        <input type="file" class="form-control me-2" id="resh1" name="resh1">
+                    </div>
+
+                    <!-- Второе решение -->
+                    <div class="mb-3 d-flex align-items-center">
+                        <label for="resh2" class="form-label me-2">Второе решение</label>
+                        <input type="file" class="form-control me-2" id="resh2" name="resh2">
+                        <a href="{{ url_for('delete_solution', post_id=post.id, solution_number=2) }}" class="btn btn-danger btn-sm">🗑️</a>
+                    </div>
+
+                    <!-- Третье решение -->
+                    <div class="mb-3 d-flex align-items-center">
+                        <label for="resh3" class="form-label me-2">Третье решение</label>
+                        <input type="file" class="form-control me-2" id="resh3" name="resh3">
+                        <a href="{{ url_for('delete_solution', post_id=post.id, solution_number=3) }}" class="btn btn-danger btn-sm">🗑️</a>
+                    </div>
+
+                    <div class="mb-3 d-flex align-items-center">
+                        <label for="resh4" class="form-label me-2">Четвёртое решение</label>
+                        <input type="file" class="form-control me-2" id="resh4" name="resh3">
+                        <a href="{{ url_for('delete_solution', post_id=post.id, solution_number=4) }}" class="btn btn-danger btn-sm">🗑️</a>
+                    </div>
+
+                    <div class="mb-3 d-flex align-items-center">
+                        <label for="resh5" class="form-label me-2">Пятое решение</label>
+                        <input type="file" class="form-control me-2" id="resh3" name="resh5">
+                        <a href="{{ url_for('delete_solution', post_id=post.id, solution_number=5) }}" class="btn btn-danger btn-sm">🗑️</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- Модальное окно для фото -->
+<div id="photoModal" class="modal" tabindex="-1">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+      </div>
+      <div class="modal-body p-0 d-flex justify-content-center align-items-center">
+        <img id="modalImage" src="" alt="" class="w-100 h-100 object-fit-contain">
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+// Открытие модального окна с увеличением фото
+const modalTriggerElements = document.querySelectorAll('.modal-trigger');
+const photoModal = new bootstrap.Modal(document.getElementById('photoModal'));
+const modalImage = document.getElementById('modalImage');
+
+modalTriggerElements.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+        modalImage.src = trigger.src;
+        modalImage.alt = trigger.alt;
+        photoModal.show();
+    });
+});
+document.getElementById('editSolutionsBtn').addEventListener('click', function () {
+    const editModal = new bootstrap.Modal(document.getElementById('editSolutionsModal'));
+    editModal.show();
+});
+</script>
+
+{% endblock %}

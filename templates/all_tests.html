@@ -1,0 +1,51 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Все тесты{% endblock %}
+
+{% block content %}
+<div class="test-card-container">
+    <h1>Все тесты</h1>
+
+<!-- Секция отображения тестов -->
+<div id="tests-section">
+    {% for test in tests.items %}
+    <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">{{ test.name }}</h5>
+            <p class="card-text">Количество задач: {{ test.tasks|length }}</p>
+            <p class="card-text">Создатель теста: {{ test.user.username }}</p>
+            <a href="{{ url_for('show_test_detail', test_id=test.id) }}" class="btn btn-outline-primary">Подробнее</a>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Пагинация для тестов -->
+    <nav>
+      <ul class="pagination justify-content-center">
+              {% if tests.has_prev %}
+              <li class="page-item">
+                  <a class="page-link" href="{{ url_for('all_tests', page=tests.prev_num) }}">Назад</a>
+              </li>
+              {% endif %}
+              {% for num in tests.iter_pages(left_edge=2, right_edge=2, left_current=2, right_current=2) %}
+              <li class="page-item {% if num == tests.page %}active{% endif %}">
+                  <a class="page-link" href="{{ url_for('all_tests', page=num) }}">{{ num }}</a>
+              </li>
+              {% endfor %}
+              {% if tests.has_next %}
+              <li class="page-item">
+                  <a class="page-link" href="{{ url_for('all_tests', page=tests.next_num) }}">Вперёд</a>
+              </li>
+              {% endif %}
+          </ul>
+      </nav>
+</div>
+
+
+
+
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,392 @@
+
+
+{% extends 'base.html' %}
+
+{% block title %}{{ thread.title }}{% endblock %}
+
+{% block head %}
+<style>
+    .thread-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        color: #333333;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .post {
+        border: 1px solid #dddddd;
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 15px;
+        background: #f9f9f9;
+        transition: background 0.3s ease;
+        display: flex;
+    }
+
+    .post:hover {
+        background: #f1f1f1;
+    }
+
+    .post-votes {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 15px;
+    }
+
+    .post-votes button {
+        background: none;
+        border: none;
+        color: #333333;
+        cursor: pointer;
+        font-size: 20px;
+        line-height: 1;
+    }
+
+    .post-votes button:hover {
+        color: #007bff;
+    }
+
+    .post-content {
+        flex: 1;
+    }
+
+    .post-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        color: #666666;
+        margin-bottom: 10px;
+    }
+
+    .post-message {
+        font-size: 16px;
+        color: #333333;
+    }
+
+    .post img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
+    .new-post-button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        margin-top: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .new-post-button:hover {
+        background-color: #0056b3;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        width: 400px;
+        max-width: 90%;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        animation: fadeIn 0.3s ease;
+    }
+
+    .modal-header {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .modal input,
+    .modal textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #dddddd;
+        border-radius: 8px;
+        font-size: 14px;
+    }
+
+    .modal button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        width: 100%;
+    }
+
+    .modal button:hover {
+        background-color: #0056b3;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 24px;
+        color: #333333;
+    }
+
+    .modal-close:hover {
+        color: #007bff;
+    }
+
+    .thread-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        color: #333333;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .post {
+        border: 1px solid #dddddd;
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 15px;
+        background: #f9f9f9;
+        transition: background 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .post:hover {
+        background: #f1f1f1;
+    }
+
+    .post-content {
+        flex: 1;
+    }
+
+    .post-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        color: #666666;
+        margin-bottom: 10px;
+    }
+
+    .post-message {
+        font-size: 16px;
+        color: #333333;
+    }
+
+    .replies {
+        margin-left: 20px;
+        border-left: 2px solid #ccc;
+        padding-left: 10px;
+        display: none;
+    }
+
+    .toggle-replies {
+        background: none;
+        border: none;
+        color: #007bff;
+        cursor: pointer;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .toggle-replies:hover {
+        text-decoration: underline;
+    }
+    .post-image {
+        max-width: 100%;
+        height: auto;
+        margin-top: 10px;
+        border-radius: 8px;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="thread-container">
+    <h1>{{ thread.title }}</h1>
+    <a href="{{ url_for('forum') }}" class="btn-custom btn-primary-custom mt-3" style="width: 225px"><-- Назад</a>
+    <p class="text-muted">Создано: {{ thread.created_at | format_time_to_local }}</p>
+
+    <div id="posts">
+        {% for post in thread.comments %}
+        <div class="post">
+            <div class="post-content">
+                <div class="post-header">
+                    <span>{{ post.name if post.name and post.name != 'NL' else (current_user.username if current_user.is_authenticated else 'Аноним') }}</span>
+                    <span>{{ post.created_at | format_time_to_local }}</span>
+                </div>
+                <div class="post-message">
+                    <p>{{ post.message }}</p>
+                    {% if post.file_name %}
+                        {% if post.file_name.endswith(('.png', '.jpg', '.jpeg', '.gif')) %}
+                            <img class="post-image" src="{{ url_for('download_post_file', post_id=post.id) }}" alt="Прикрепленное изображение">
+                        {% else %}
+                            <p><a href="{{ url_for('download_post_file', post_id=post.id) }}" download>{{ post.file_name }}</a></p>
+                        {% endif %}
+                    {% endif %}
+
+
+                </div>
+                <button class="new-post-button" onclick="openModal('replyModal', {{ post.id }})">Ответить</button>
+                {% if current_user.is_authenticated and current_user.role == 'admin' %}
+                    <button class="delete-button" onclick="deletePost({{ post.id }})">Удалить</button>
+                {% endif %}
+                {% if post.replies %}
+                <button class="toggle-replies" onclick="toggleReplies({{ post.id }})">Ответы ({{ post.replies|length }}) ▼</button>
+                <div id="replies-{{ post.id }}" class="replies">
+                    {% for reply in post.replies %}
+                    <div class="post reply">
+                        <div class="post-content">
+                            <div class="post-header">
+                                <span>{{ reply.name if reply.name and reply.name != 'NL' else (current_user.username if current_user.is_authenticated else 'Аноним') }}</span>
+                                <span>{{ reply.created_at | format_time_to_local }}</span>
+                            </div>
+                            <div class="post-message">
+                                <p>{{ reply.message }}</p>
+                                {% if reply.file_name %}
+                                    {% if post.file_name.endswith(('.png', '.jpg', '.jpeg', '.gif')) %}
+                                        <img class="post-image" src="{{ url_for('download_post_file', post_id=post.id) }}" alt="Прикрепленное изображение">
+                                    {% else %}
+                                        <p><a href="{{ url_for('download_post_file', post_id=post.id) }}" download>{{ post.file_name }}</a></p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% if not thread.is_admin_thread  or current_user.role == 'admin' %}
+    <button class="new-post-button" onclick="openModal('newPostModal')">Добавить комментарий</button>
+    {% endif %}
+</div>
+
+
+
+
+
+<div id="newPostModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('newPostModal')">&times;</span>
+        <form action="{{ url_for('view_thread', thread_id=thread.id) }}" method="POST" enctype="multipart/form-data" onsubmit="return validateName(this)">
+            <div class="modal-header">Добавить комментарий</div>
+            <input type="text" name="name" placeholder="Ваше имя (необязательно)">
+            <textarea name="message" placeholder="Ваше сообщение" required></textarea>
+            <input type="file" name="file">
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+</div>
+
+<div id="replyModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('replyModal')">&times;</span>
+        <form action="{{ url_for('view_thread', thread_id=thread.id) }}" method="POST" enctype="multipart/form-data" onsubmit="return validateName(this)">
+            <div class="modal-header">Ответить на комментарий</div>
+            <input type="hidden" name="parent_id" value="">
+            <input type="text" name="name" placeholder="Ваше имя (необязательно)">
+            <textarea name="message" placeholder="Ваше сообщение" required></textarea>
+            <input type="file" name="file">
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+</div>
+
+<div class="pagination">
+    {% if comments_paginated.has_prev %}
+        <a href="{{ url_for('view_thread', thread_id=thread.id, page=comments_paginated.prev_num) }}">Предыдущая</a>
+    {% endif %}
+    {% if comments_paginated.has_next %}
+        <a href="{{ url_for('view_thread', thread_id=thread.id, page=comments_paginated.next_num) }}">Следующая</a>
+    {% endif %}
+</div>
+
+
+<script>
+    function openModal(id, postId) {
+        const modal = document.getElementById(id);
+        modal.style.display = 'flex';
+        if (postId) {
+            const input = modal.querySelector('input[name="parent_id"]');
+            if (input) {
+                input.value = postId;
+            }
+        }
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+
+    function validateName(form) {
+        const nameInput = form.querySelector('input[name="name"]');
+        if (nameInput && nameInput.value.trim().toLowerCase() === 'nl') {
+            alert('Имя "NL" зарезервировано для администратора. Выберите другое имя.');
+            return false;
+        }
+        return true;
+    }
+
+    function toggleReplies(postId) {
+        const repliesDiv = document.getElementById(`replies-${postId}`);
+        repliesDiv.style.display = repliesDiv.style.display === "none" ? "block" : "none";
+    }
+
+
+    function deletePost(postId) {
+        if (confirm("Вы уверены, что хотите удалить этот комментарий?")) {
+            fetch(`/forum/remove_comment/${postId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert("Ошибка при удалении комментария.");
+                }
+            });
+        }
+    }
+</script>
+{% endblock %}

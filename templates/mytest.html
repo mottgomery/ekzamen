@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="{{ url_for('static', filename='css/test_page_styles.css') }}" rel="stylesheet">
+
+
+
+{% endblock %}
+
+{% block title %}
+Все задачи
+{% endblock %}
+
+{% block content %}
+<div class="test-card-container">
+    <h1>Мои тесты</h1>
+<div class="button-container">
+
+    <!-- Серые кнопки -->
+    <button class="btn-secondary-group">Кнопка 1</button>
+    <button class="btn-secondary-group">Кнопка 2</button>
+    <button class="btn-secondary-group">Кнопка 3</button>
+        <!-- Кнопка "Создать тест" -->
+    <a href="#sostav" class="btn-create" id="createTestBtn">Создать тест +</a>
+
+</div>
+
+    <!-- Секция отображения тестов -->
+    <div id="tests-section">
+        {% for test in tests.items %}
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ test.name }}</h5>
+                <p class="card-text">Количество задач: {{ test.tasks|length }}</p>
+                <a href="{{ url_for('show_test_detail', test_id=test.id) }}" class="btn btn-outline-primary">Подробнее</a>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Пагинация для тестов -->
+        <nav>
+          <ul class="pagination justify-content-center">
+                  {% if tests.has_prev %}
+                  <li class="page-item">
+                      <a class="page-link" href="{{ url_for('view_tests', page=tests.prev_num) }}">Назад</a>
+                  </li>
+                  {% endif %}
+                  {% for num in tests.iter_pages(left_edge=2, right_edge=2, left_current=2, right_current=2) %}
+                  <li class="page-item {% if num == tests.page %}active{% endif %}">
+                      <a class="page-link" href="{{ url_for('view_tests', page=num) }}">{{ num }}</a>
+                  </li>
+                  {% endfor %}
+                  {% if tests.has_next %}
+                  <li class="page-item">
+                      <a class="page-link" href="{{ url_for('view_tests', page=tests.next_num) }}">Вперёд</a>
+                  </li>
+                  {% endif %}
+              </ul>
+          </nav>
+    </div>
+</div>
+
+
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+
+<hr size="7" >
+    <div class="content" id="sostav">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="d-flex justify-content-between mb-3">
+                    <button id="enableSelection" class="btn-custom btn-primary-custom mt-3">Выбрать задачи</button>
+                    <button class="btn-custom btn-primary-custom mt-3" data-bs-toggle="modal" data-bs-target="#filterModal">
+                        <i class="fa fa-filter"></i> Фильтры
+                    </button>
+                    <button id="createTest" class="btn-custom btn-primary-custom mt-3" disabled>Сформировать тест</button>
+                </div>
+
+                <!-- Поле для ввода названия теста -->
+                <div class="mb-3">
+                    <label for="testName" class="form-label">Название теста <span class="text-danger">*</span></label>
+                    <input type="text" id="testName" class="form-control" placeholder="Введите название теста" required>
+                </div>
+
+                <!-- Модальное окно для фильтров -->
+                <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="filterModalLabel">Фильтры</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="get" action="{{ url_for('posts') }}">
+                                    <div class="mb-3">
+                                        <label for="sort_by">Сортировка:</label>
+                                        <select name="sort_by" class="form-control mt-2">
+                                            <option value="title" {% if sort_by == 'title' %}selected{% endif %}>По номеру билета</option>
+                                            <option value="level" {% if sort_by == 'level' %}selected{% endif %}>По уровню задачи</option>
+                                        </select>
+                                        <select name="order" class="form-control mt-2">
+                                            <option value="asc" {% if order == 'asc' %}selected{% endif %}>Возрастание</option>
+                                            <option value="desc" {% if order == 'desc' %}selected{% endif %}>Убывание</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label>Темы задач:</label>
+                                        <div class="tags-list mt-2">
+                                            {% for tag in all_tags %}
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="tags" value="{{ tag.name }}" id="modal-tag-{{ tag.id }}"
+                                                    {% if tag.name in filter_tags %}checked{% endif %}>
+                                                <label class="form-check-label" for="modal-tag-{{ tag.id }}">{{ tag.name }}</label>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn-custom btn-secondary-custom mt-3">Применить</button>
+                                    <a href="{{ url_for('posts') }}" class="btn-custom btn-secondary-custom mt-3">Очистить фильтры</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for post in posts.items %}
+    <div class="col">
+        <div class="card h-100 shadow-sm task-card">
+            <div class="card-body">
+                <!-- Чекбокс для выбора задач -->
+                <input type="checkbox" class="form-check-input task-checkbox d-none" value="{{ post.id }}">
+                <h5 class="card-title">
+                    <a href="{{ url_for('posts', title=post.title) }}" class="text-decoration-none">
+                        Билет: {{ post.title }}
+                    </a>
+                </h5>
+                <p class="card-text">Уровень: {{ post.level }}</p>
+                <div class="tags">
+                    <strong>Темы:</strong>
+                    {% for tag in post.tags %}
+                        <a href="{{ url_for('posts', tags=tag.name) }}" class="badge bg-secondary">{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
+                <p></p>
+                <a href="{{ url_for('show_post_detail', id=post.id) }}" class="btn btn-outline-primary w-100">Подробнее</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if posts.has_prev %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('posts', page=posts.prev_num, sort_by=sort_by, order=order, tags=selected_tag) }}">Назад</a>
+            </li>
+        {% endif %}
+        {% for num in posts.iter_pages(left_edge=2, right_edge=2, left_current=2, right_current=2) %}
+            <li class="page-item {% if num == posts.page %}active{% endif %}">
+                <a class="page-link" href="{{ url_for('posts', page=num, sort_by=sort_by, order=order, tags=selected_tag) }}">{{ num }}</a>
+            </li>
+        {% endfor %}
+        {% if posts.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('posts', page=posts.next_num, sort_by=sort_by, order=order, tags=selected_tag) }}">Вперёд</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Показывать или скрывать чекбоксы при нажатии на кнопку
+            $('#enableSelection').click(function() {
+                $('.task-checkbox').toggleClass('d-none');
+            });
+
+            // Включить кнопку формирования теста, если выбраны задачи
+            $('.task-checkbox').on('change', function() {
+                const selected = $('.task-checkbox:checked').length > 0;
+                const hasTestName = $('#testName').val().trim() !== ""; // Проверяем, введено ли название теста
+                $('#createTest').prop('disabled', !(selected && hasTestName));
+            });
+
+            // Проверка на обязательность названия теста
+            $('#testName').on('input', function() {
+                const hasTestName = $(this).val().trim() !== "";
+                const selected = $('.task-checkbox:checked').length > 0;
+                $('#createTest').prop('disabled', !(selected && hasTestName));
+            });
+
+            // Обработка формирования теста
+            $('#createTest').click(function() {
+                const selectedTasks = $('.task-checkbox:checked').map(function() {
+                    return $(this).val();
+                }).get();
+
+                const testName = $('#testName').val().trim();
+
+                if (selectedTasks.length > 0 && testName) {
+                    $.ajax({
+                        url: "{{ url_for('create_test') }}",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            testName: testName,
+                            taskIds: selectedTasks
+                        }),
+                        success: function(response) {
+                            alert('Тест успешно создан!');
+                            location.reload();
+                        },
+                        error: function(xhr) {
+                            alert('Ошибка при создании теста: ' + xhr.responseJSON.error);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</div>
+</div>
+</div>
+{% endblock %}

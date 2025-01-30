@@ -1,0 +1,1122 @@
+/* Основные настройки */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: url("/static/img/bg-slide-block.png");
+    background-size: 100%;
+}
+
+header {
+    position: static;
+    top: 0;
+    z-index: 1000;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+footer {
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+    height: 240px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.heder__img {
+    height: 65%;
+    width: 65%;
+    border-radius: 10px;
+}
+
+.my__vk {
+    height: 48px;
+    width: 48px;
+    border-radius: 10px;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content {
+    max-width: 75%;
+    margin: 0 auto;
+    padding: 40px 20px;
+    flex: 1;
+}
+
+/* Стили для задачи */
+.row {
+    padding: 50px 0;
+}
+
+
+.seperator {
+    margin-bottom: 30px;
+    width: 35px;
+    height: 3px;
+    background: #777;
+    border: none;
+}
+
+.title {
+    text-align: center;
+}
+
+.title .row {
+    padding: 50px 0 0;
+}
+
+.title h1 {
+    text-transform: uppercase;
+}
+
+.title .seperator {
+    margin: 0 auto 10px;
+}
+
+.item {
+    position: relative;
+    margin-bottom: 30px;
+    min-height: 1px;
+    float: left;
+    width: 100%;
+    transition: transform 0.2s ease-in-out;
+}
+
+.item:hover {
+    transform: scale(1.02);
+}
+
+.item .item-in {
+    background: #fff;
+    padding: 20px;
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.item h4 {
+    font-size: 18px;
+    margin-top: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.item p {
+    font-size: 14px;
+    color: #666;
+}
+
+.item a {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #666;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.item a i {
+    opacity: 0;
+    padding-left: 0px;
+    transition: 0.4s;
+    font-size: 16px;
+}
+
+.item a:hover i {
+    padding-left: 10px;
+    opacity: 1;
+}
+
+.zad__img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sort-buttons {
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+
+.sort-buttons .btn {
+    margin-right: 10px;
+    font-size: 13px;
+}
+
+.details {
+    margin-top: 15px;
+}
+
+.btn-info {
+    margin-top: 10px;
+}
+
+
+/* Блок решения скрыт по умолчанию */
+.solution-hidden {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+}
+
+/* Класс для плавного показа решения */
+.solution-visible {
+    max-height: 500px; /* Задаем достаточно большую высоту для блока */
+    transition: max-height 0.5s ease-in;
+}
+
+
+/* Стили только для кнопок в разделе CTA на главной странице */
+.cta-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    font-size: 18px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+}
+
+/* main.css */
+
+/* Основные стили */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+}
+
+h1, h2 {
+    color: #333;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Секции */
+.cta, .features, .benefits, .statistics {
+    margin: 40px auto;
+    max-width: 900px;
+    padding: 30px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Призыв к действию */
+.cta {
+    text-align: center;
+    background-color: #007bff;
+    color: white;
+}
+
+.cta h2 {
+    color: #fff;
+    font-size: 24px;
+}
+
+.cta p {
+    color: #f1f1f1;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.cta-button {
+    background-color: #0056b3;
+    color: white;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin: 10px;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+.cta-button:hover {
+    background-color: #003d80;
+}
+
+/* Особенности и преимущества */
+.features ul, .benefits ul {
+    list-style: none;
+    padding: 0;
+    font-size: 16px;
+}
+
+.features li, .benefits li {
+    margin-bottom: 10px;
+    color: #555;
+    display: flex;
+    align-items: center;
+}
+
+.features li:before, .benefits li:before {
+    content: '✔';
+    margin-right: 10px;
+    color: #007bff;
+}
+
+/* Статистика */
+.statistics ul {
+    list-style: none;
+    padding: 0;
+    font-size: 18px;
+    text-align: center;
+}
+
+.statistics li {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Кнопки */
+.btn-info, .sort-buttons .btn {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.btn-info:hover, .sort-buttons .btn:hover {
+    background-color: #0056b3;
+}
+
+/* Разделители и отступы */
+.section-divider {
+    width: 60px;
+    height: 4px;
+    background: #007bff;
+    margin: 20px auto;
+    border-radius: 4px;
+}
+
+/* Тёмная тема */
+body.dark-theme {
+    background-color: #1c1c1c;
+    color: #f5f5f5;
+}
+body.dark-theme .content{
+    color: #f5f5f5;
+}
+/* Хедер и футер */
+body.dark-theme header,
+body.dark-theme footer
+{
+    background-color: #2a2a2a;
+    color: #f5f5f5;
+}
+
+/* Элементы с текстом и ссылками */
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme p,
+body.dark-theme a {
+    color: #f5f5f5;
+}
+
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+body, html {
+  height: 100%;
+  line-height: 1.8;
+}
+
+
+.w3-bar .w3-button {
+    padding: 16px;
+}
+
+/* Дополнительные секции */
+body.dark-theme .features,
+body.dark-theme .benefits,
+body.dark-theme .statistics,
+body.dark-theme .item-in{
+    background-color: #2e2e2e;
+    color: #f5f5f5;
+}
+
+body.dark-theme .statistics li,
+body.dark-theme .features li,
+body.dark-theme .benefits li{
+    background-color: #2e2e2e;
+    color: #c3c3c3;
+}
+
+/* Стили ссылок и кнопок при наведении */
+body.dark-theme .cta-button:hover,
+body.dark-theme .btn:hover {
+    background-color: #3a3a3a;
+}
+
+
+/* Общие стили формы */
+form {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для полей ввода */
+input[type="text"],
+input[type="password"] {
+    width: calc(100% - 40px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Стили для кнопки переключения видимости пароля */
+#togglePassword {
+    position: absolute;
+    right: 15px;
+    top: 35px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #007bff;
+    padding: 0;
+}
+
+#togglePassword:hover {
+    color: #0056b3;
+}
+
+/* Контейнер для поля пароля и кнопки */
+.password-container {
+    position: relative;
+}
+
+/* Стили для кнопки отправки */
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+
+#deleteButton {
+    padding: 8px 16px; /* Добавьте, если нужно увеличить отступы внутри кнопки */
+    border: none; /* Убирает границу */
+    background-color: #6c757d; /* Цвет кнопки (как в `btn-secondary`) */
+    color: white; /* Цвет текста */
+    cursor: pointer;
+    border-radius: 4px; /* Скругленные края для улучшения внешнего вида */
+}
+#deleteForm {
+    text-align: left; /* Выровнять содержимое формы по левому краю */
+    display: inline;
+    padding: 0px 0px;
+}
+
+#deleteButton {
+    display: inline-block; /* Убирает центрирование */
+    margin: 0; /* Убирает автоматические отступы */
+}
+
+
+.tags {
+    margin-top: 10px;
+}
+.tag {
+    display: inline-block;
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 2px 6px;
+    margin: 2px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    text-decoration: none;
+}
+
+
+body.dark-theme .tag
+{
+    display: inline-block;
+    background-color: #555555;
+    color: #cdcdcd;
+    padding: 2px 6px;
+    margin: 2px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+body.dark-theme .w3-bar-item w3-button{
+
+}
+.card {
+    position: relative;
+    height: 100%;
+    background-color: #ffffff;
+    transition: transform 0.2s ease-in-out;
+    border-radius: 8px;
+}
+body.dark-theme .filter-panel,
+body.dark-theme .filter-panel,
+body.dark-theme .card-title,
+body.dark-theme .card-body{
+    background-color: #2e2e2e;
+    color: #cdcdcd;
+}
+
+body.dark-theme .card{
+    background-color: #2e2e2e;
+    border-radius: 8px;
+}
+.container {
+    max-width: 1200px;
+}
+
+
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+
+.col-md-3 {
+    position: sticky;
+    top: 20px;
+    max-height: 100vh;
+}
+
+.pagination {
+    margin-top: 20px;
+}
+.filter-panel {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: #fff;
+}
+
+
+.card-footer {
+    background-color: transparent;
+}
+
+.tags .badge {
+    margin-right: 4px;
+}
+.filter-panel {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+}
+
+.tags-list .form-check {
+    margin-bottom: 10px;
+
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: #fff;
+
+
+}
+
+
+
+.card-footer {
+    background-color: transparent;
+}
+
+.tags .badge {
+    margin-right: 4px;
+    text-decoration: none;
+}
+
+.card-title{
+    color: #333;
+    text-decoration-color: #3a3a3a;
+    text-decoration: none;
+
+}
+
+/* Добавление анимации перехода для темы */
+body.dark-transition {
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+body.light-transition {
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+/* Анимация затемнения при переходе */
+body.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+body.fade-out {
+    animation: fadeOut 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Темная тема для хедера */
+body.dark-theme #myNavbar {
+    background-color: #333 !important;
+    color: #fff;
+}
+
+body.dark-theme .w3-bar-item {
+    color: #fff !important;
+}
+
+body.dark-theme .w3-bar-item:hover {
+    background-color: #555 !important;
+}
+
+
+/* Контейнер для кнопок */
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px; /* Расстояние между кнопками */
+    margin: 20px;
+}
+
+/* Кнопка "Создать тест" */
+.btn-create {
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.btn-create:hover {
+    background-color: #0056b3;
+}
+
+/* Стили для серых кнопок */
+.btn-secondary-group {
+    background-color: #e0e0e0;
+    color: #333;
+    font-size: 16px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary-group:hover {
+    background-color: #bdbdbd;
+}
+
+
+
+
+/* Стили для карточки с информацией о тесте */
+.test-card-container {
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.test-card-container h5 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.test-card-container p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.test-card-container .btn {
+    font-size: 0.875rem;
+    padding: 8px 12px;
+}
+
+/* Стили для страницы деталей теста */
+.test-detail-page {
+    background-color: #ffffff;
+    border: 1px solid #dedede;
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: 20px;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.test-detail-page h1 {
+    font-size: 2rem;
+    color: #222;
+    margin-bottom: 20px;
+}
+
+.test-detail-page p {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.test-detail-page ul {
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+.test-detail-page ul li {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.test-detail-page .btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.test-detail-page .btn-danger {
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+}
+
+.test-detail-page .btn-danger:hover {
+    background-color: #c9302c;
+}
+
+.test-detail-page .btn-secondary {
+    background-color: #5bc0de;
+    color: #fff;
+    border: none;
+}
+
+.test-detail-page .btn-secondary:hover {
+    background-color: #31b0d5;
+}
+
+
+/* Общие стили для кнопок */
+button, .btn {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Первичная кнопка (например, создать тест) */
+.btn-primary, .btn-primary:hover {
+    background-color: #3498db;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Вторичная кнопка (например, фильтры или отмена) */
+.btn-secondary, .btn-secondary:hover {
+    background-color: #95a5a6;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary:hover {
+    background-color: #7f8c8d;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Кнопки удаления (опасные действия) */
+.btn-danger, .btn-danger:hover {
+    background-color: #e74c3c;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Интерактивные эффекты на фокус */
+button:focus, .btn:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+}
+
+/* Дополнительный стиль для отключённых кнопок */
+button:disabled, .btn:disabled {
+    background-color: #bdc3c7;
+    color: #ecf0f1;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Плавающий эффект при наведении */
+button:hover, .btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Кнопки со 100% шириной (например, подробнее) */
+.btn-outline-primary {
+    color: #3498db;
+    border: 1px solid #3498db;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: #3498db;
+    color: white;
+    border-color: #2980b9;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Контейнер для кнопок */
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px; /* Расстояние между кнопками */
+    margin: 20px;
+}
+
+/* Кнопка "Создать тест" */
+.btn-create {
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.btn-create:hover {
+    background-color: #0056b3;
+}
+
+/* Стили для серых кнопок */
+.btn-secondary-group {
+    background-color: #e0e0e0;
+    color: #333;
+    font-size: 16px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary-group:hover {
+    background-color: #bdbdbd;
+}
+
+.button-container a {
+    text-decoration: none;
+}
+
+
+
+
+/* Общие стили для кнопок */
+.btn-custom {
+    display: inline-block;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 100%; /* На мобильных устройствах кнопки будут растягиваться */
+    max-width: 300px; /* На больших экранах будет ограничение по ширине */
+    margin: 5px auto; /* Центрирование кнопок на мобильных устройствах */
+}
+
+/* Основная кнопка */
+.btn-primary-custom {
+    background-color: #3498db;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary-custom:hover {
+    background-color: #2980b9;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Кнопка удаления */
+.btn-danger-custom {
+    background-color: #e74c3c;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-danger-custom:hover {
+    background-color: #c0392b;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Вторичная кнопка */
+.btn-secondary-custom {
+    background-color: #95a5a6;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary-custom:hover {
+    background-color: #7f8c8d;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Упрощённый стиль для маленьких кнопок (иконки) */
+.btn-icon {
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 2px;
+}
+
+.btn-icon-danger {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-icon-danger:hover {
+    background-color: #c0392b;
+}
+
+.btn-icon-secondary {
+    background-color: #95a5a6;
+    color: white;
+}
+
+.btn-icon-secondary:hover {
+    background-color: #7f8c8d;
+}
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 576px) {
+    .btn-custom {
+        font-size: 12px;
+        padding: 8px 16px;
+        width: 100%; /* Растягиваем кнопки на всю ширину */
+    }
+}
+
+
+    .forum-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 0;
+        color: #333333;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .thread-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .thread-item {
+        border: 1px solid #dddddd;
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 15px;
+        background: #f9f9f9;
+        transition: background 0.3s ease;
+        display: flex;
+        align-items: center;
+    }
+
+    .thread-item:hover {
+        background: #f1f1f1;
+    }
+
+    .thread-votes {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 15px;
+    }
+
+    .thread-votes button {
+        background: none;
+        border: none;
+        color: #333333;
+        cursor: pointer;
+        font-size: 20px;
+        line-height: 1;
+    }
+
+    .thread-votes button:hover {
+        color: #007bff;
+    }
+
+    .thread-item a {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .thread-item a:hover {
+        text-decoration: underline;
+    }
+
+    .thread-item .timestamp {
+        font-size: 12px;
+        color: #666666;
+        margin-top: 5px;
+    }
+
+    .new-thread-button {
+        display: block;
+        margin: 20px auto;
+        text-align: center;
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .new-thread-button:hover {
+        background-color: #0056b3;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        width: 90%;
+        max-width: 500px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        position: relative;
+    }
+
+    .modal-header {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .modal input,
+    .modal textarea {
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 14px;
+    }
+
+    .modal button {
+        background-color: #007bff;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+    }
+
+    .modal button:hover {
+        background-color: #0056b3;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        cursor: pointer;
+        font-size: 24px;
+        color: #aaa;
+    }
+
+    .modal-close:hover {
+        color: #333;
+    }
