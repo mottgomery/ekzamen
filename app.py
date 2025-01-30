@@ -11,23 +11,16 @@ from io import BytesIO
 from pytz import timezone
 
 
-# Функция для конвертации времени
-def format_time_to_local(dt, tz_name="Europe/Moscow"):
-    local_tz = timezone(tz_name)
-    local_time = dt.astimezone(local_tz)
-    return local_time.strftime('%d.%m.%Y %H:%M')
-
-
-
-
-
-
-
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///zadachi.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'your_secret_key'
+
+DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///local.db")
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "your_secret_key")
 app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), 'uploads')
 
 db = SQLAlchemy(app)
@@ -116,6 +109,12 @@ class Reply(db.Model):
 def forum():
     threads = Thread.query.order_by(Thread.votes.desc()).all()
     return render_template('forum.html', threads=threads)
+
+# Функция для конвертации времени
+def format_time_to_local(dt, tz_name="Europe/Moscow"):
+    local_tz = timezone(tz_name)
+    local_time = dt.astimezone(local_tz)
+    return local_time.strftime('%d.%m.%Y %H:%M')
 
 
 @app.route('/thread/<int:thread_id>', methods=['GET', 'POST'])
@@ -804,6 +803,7 @@ def create_admin():
 # ✅ Правильный запуск приложения
 if __name__ == '__main__':
     with app.app_context():
+        db.create_all()
         create_admin()   # ✅ Создаём админа (если его нет)
 
     app.run(debug=True, port=5000)
