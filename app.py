@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, flash, abort, send_file, send_from_directory, session
+from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
@@ -25,11 +26,12 @@ def format_time_to_local(dt, tz_name="Europe/Moscow"):
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///zadachi.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'your_secret_key'
-app.config['UPLOAD_FOLDER'] = 'uploads/'
-app.jinja_env.filters['format_time_to_local'] = format_time_to_local
+app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), 'uploads')
 
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -163,6 +165,9 @@ def new_admin_thread():
     db.session.add(thread)
     db.session.commit()
     return redirect(url_for('forum'))
+
+
+
 
 
 @app.route('/forum/remove_comment/<int:comment_id>', methods=['POST'])
@@ -786,5 +791,19 @@ app.jinja_env.filters['to_base64'] = to_base64
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
 
+
+# ✅ Функция для создания администратора
+def create_admin():
+    with app.app_context():
+        if not User.query.filter_by(username='admin').first():
+            hashed_password = bcrypt.generate_password_hash('Alkash2008').decode('utf-8')
+            admin = User(username='admin', password=hashed_password, role='admin')
+            db.session.add(admin)
+            db.session.commit()
+
+# ✅ Правильный запуск приложения
 if __name__ == '__main__':
+    with app.app_context():
+        create_admin()   # ✅ Создаём админа (если его нет)
+
     app.run(debug=True, port=5000)
